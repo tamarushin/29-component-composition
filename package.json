@@ -1,0 +1,25 @@
+{
+  "name": "29-component-composition",
+  "version": "1.0.0",
+  "description": "![cf](http://i.imgur.com/7v5ASc8.png) 29: To Do ===",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tamarushin/29-component-composition.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tamarushin/29-component-composition/issues"
+  },
+  "homepage": "https://github.com/tamarushin/29-component-composition#readme",
+  "dependencies": {
+    "app": "^0.1.0",
+    "create": "0.0.2",
+    "react": "^16.4.2"
+  }
+}
