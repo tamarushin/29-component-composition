@@ -1,16 +1,19 @@
 import React, { Component } from 'react';
+import NoteItem from '../Note-Item/note-item';
 
-export default class NoteItem extends Component {
+export default class NoteList extends Component {
   constructor(props) {
     super(props);
   }
   render() {
+    console.log('HOWDY', this.props.notes);
     return (
-      this.props.note.map(note => {
-        <li key={note.id}>
+      this.props.notes.map(note => {
+        <li key={note.id} id={note.id}>
           <h3>{note.title}</h3>
           <p>{note.content}</p>
-          <button className='delete_btn' onClick={this.props.removeNote}>Delete</button>
+          <NoteItem note={note}/> 
+          {/* <button className='delete_btn' onClick={this.props.removeNote}>Delete</button> */}
         </li>;
       })
     );
