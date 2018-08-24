@@ -47,7 +47,7 @@ export default class NoteUpdateForm extends React.Component {
             onChange={this.handleChange}
           />
         </div>
-        <button className='submit_btn' type='submit'> update Note</button>
+        <button className='submit' type='submit'> update the Sounds of your note</button>
       </form>
     );
   }
