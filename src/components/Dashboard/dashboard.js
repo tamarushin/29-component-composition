@@ -51,6 +51,11 @@ export default class Dashboard extends Component {
       if (event.target.id !== note.id) {
         return note;
       }
+
+  handleUdateForm(event) {
+    this.setState({ content: event.target.value });
+      }
+
     });
     this.setState({
       notes: filteredNotes,
@@ -80,6 +85,10 @@ export default class Dashboard extends Component {
         <NoteList
           notes={this.state.notes}
           removeNote={this.removeNote} />
+        <NoteUpdateForm
+          onComplete={this.handleSubmit}
+          handleContentChange={this.handleContentChange}
+          handleTitleChange={this.handleTitleChange} />
       </Fragment>
     );
 
