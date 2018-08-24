@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import uuidv1 from 'uuid/v1';
+import uuid from 'uuid/v1';
 
 import NoteCreateForm from '../Note-Create-Form/note-create-form';
 import NoteList from '../Note-List/note-list';
@@ -10,8 +10,11 @@ export default class Dashboard extends Component {
     super(props);
     this.state = {
       notes: [],
-      content: '',
+      id: '',
       title: '',
+      content: '',
+      editing: false,
+      completed: false,
     };
     this.addNote = this.addNote.bind(this);
     this.removeNote = this.removeNote.bind(this);
@@ -21,7 +24,7 @@ export default class Dashboard extends Component {
   }
 
   addNote(note) {
-    note.id = uuidv1(),
+    note.id = uuid(),
     note.editing = false,
     note.completed = false,
     note.title = this.state.title,
@@ -42,10 +45,10 @@ export default class Dashboard extends Component {
     this.setState({ title: event.target.value });
   }
 
-  removeNote(e) {
+  removeNote(event) {
     console.log('remove note', this.state.notes);
     let filteredNotes = this.state.notes.filter(note => {
-      if (e.target.id !== note.id) {
+      if (event.target.id !== note.id) {
         return note;
       }
     });
@@ -53,12 +56,12 @@ export default class Dashboard extends Component {
       notes: filteredNotes,
     });
     console.log(filteredNotes, 'filtered');
-    console.log(e.target.id, 'id');
+    console.log(event.target.id, 'id');
   }
 
   handleSubmit(event) {
     event.preventDefault();
-    this.addNote(this.state);
+    this.addNote();
     this.setState({
       title: '',
       content: '',
