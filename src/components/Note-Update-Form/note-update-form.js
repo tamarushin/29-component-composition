@@ -1,53 +1,46 @@
 import React from 'react';
 
 export default class NoteUpdateForm extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      title: '',
-      content: '',
 
-    };
-//??
-  }
-
-  handleSubmit(event) {
-    event.preventDefault();
-    console.log('test');
-
-    this.props.note.title = this.state.title;
-    this.props.note.content = this.state.content;
-
-    this.props.close();
-  }
-
-  handleChange(event) {
-    let { name, value } = event.target;
-    this.setState({
-      [name]: value,
-    });
-  }
 
   render() {
+
+    let handleChange = (event) => {
+      let { name, value } = event.target;
+      this.setState({
+        [name]: value,
+      });
+    };
+
+    let handleSubmit = (event) => {
+      event.preventDefault();
+      console.log('submitted update');
+
+      this.props.handleComplete(this.state);
+      this.setState({
+        title: '',
+        content: '',
+      });
+    };
+
+
     return (
-      <form className='note_input_form' onSubmit={this.handleSubmit}>
+      <form className='note_input_form' onSubmit={handleSubmit}>
         <div className='input_area'>
           <input
             type='text'
             name='title'
             placeholder={this.props.note.title}
-            value={this.state.title}
-            onChange={this.handleChange}
+            onChange={handleChange}
           />
           <input
             type='text'
             name='content'
             placeholder={this.props.note.content}
-            value={this.state.content}
-            onChange={this.handleChange}
+            onChange={handleChange}
           />
         </div>
-        <button className='submit' type='submit'> update the Sounds of your note</button>
+        <button className='submit' type='submit'>UPDATE</button>
       </form>
     );
   }

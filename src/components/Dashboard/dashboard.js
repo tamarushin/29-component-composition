@@ -1,40 +1,36 @@
 import React, { Component, Fragment } from 'react';
-import uuid from 'uuid/v1';
+import uuidv1 from 'uuid/v1';
 
-import NoteCreateForm from '../Note-Create-Form/note-create-form';
-import NoteList from '../Note-List/note-list';
-// import NoteItem from '../Note-Item/note-item';
+import NoteCreateForm from '../Note-Create-Form/note-create-form.js';
+import NoteList from '../Note-List/note-list.js';
 
 export default class Dashboard extends Component {
   constructor(props) {
     super(props);
     this.state = {
       notes: [],
-      id: '',
-      title: '',
       content: '',
-      editing: false,
-      completed: false,
+      title: '',
     };
     this.addNote = this.addNote.bind(this);
     this.removeNote = this.removeNote.bind(this);
+    this.updateNote = this.updateNote.bind(this);
     this.handleContentChange = this.handleContentChange.bind(this);
     this.handleTitleChange = this.handleTitleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+
   }
 
   addNote(note) {
-    note.id = uuid(),
-    note.editing = false,
-    note.completed = false,
-    note.title = this.state.title,
-    note.content = this.state.content,
+    note.id = uuidv1(),
+      note.editing = false,
+      note.completed = false,
+      note.title = this.state.title,
+      note.content = this.state.content,
 
-    console.log(note);
-
-    this.setState({
-      notes: [...this.state.notes, note],
-    });
+      this.setState({
+        notes: [...this.state.notes, note],
+      });
   }
 
   handleContentChange(event) {
@@ -46,49 +42,53 @@ export default class Dashboard extends Component {
   }
 
   removeNote(event) {
-    console.log('remove note', this.state.notes);
     let filteredNotes = this.state.notes.filter(note => {
       if (event.target.id !== note.id) {
         return note;
       }
-
-  handleUdateForm(event) {
-    this.setState({ content: event.target.value });
-      }
-
     });
     this.setState({
       notes: filteredNotes,
     });
-    console.log(filteredNotes, 'filtered');
-    console.log(event.target.id, 'id');
+  }
+
+  updateNote(event) {
+    let updatedNotes = this.state.notes.map(note => {
+      if (event.id === note.id) {
+        return event;
+      }
+      else {
+        return note;
+      }
+    });
+    this.setState({
+      notes: updatedNotes,
+    });
   }
 
   handleSubmit(event) {
     event.preventDefault();
-    this.addNote();
+    console.log('I am being submitted');
+    this.addNote(this.state);
     this.setState({
-      title: '',
+      title: '', //clears form
       content: '',
     });
   }
 
+  //rendering components
   render() {
-    console.log(this.state, 'state');
     return (
       <Fragment>
         <h1>Dashboard</h1>
         <NoteCreateForm
-          onComplete={this.handleSubmit}
+          handleSubmit={this.handleSubmit}
           handleContentChange={this.handleContentChange}
           handleTitleChange={this.handleTitleChange} />
         <NoteList
           notes={this.state.notes}
-          removeNote={this.removeNote} />
-        <NoteUpdateForm
-          onComplete={this.handleSubmit}
-          handleContentChange={this.handleContentChange}
-          handleTitleChange={this.handleTitleChange} />
+          removeNote={this.removeNote}
+          updateNote={this.updateNote} />
       </Fragment>
     );
 
