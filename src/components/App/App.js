@@ -22,7 +22,7 @@ export default class App extends Component {
               <Route exact path='/' component={Landing} />
               <Route exact path='/Dashboard' component={Dashboard} />
             </div>
-     
+
           </Fragment>
         </BrowserRouter>
       </Fragment>
